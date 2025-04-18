@@ -1,0 +1,40 @@
+function [name, ufid, ...
+          A, b, c, D, x1, x2, x3, aug, ...
+          x4, x5, x6, x7, x8, ...
+          F1, F2, E, m, n, E1, E2] = Exercise1()
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    % --- Part A [10 Points] --- %
+    A = NaN;
+    b = NaN;
+    c = NaN;
+    D = NaN;
+    x1 = NaN; % (COMMENT)
+    x2 = NaN; % (COMMENT)
+    x3 = NaN; % (COMMENT)
+    aug = NaN; % (COMMENT)
+
+    % --- Part B [10 Points] --- %
+    x4 = NaN; % (COMMENT)
+    x5 = NaN; % (COMMENT)
+    x6 = NaN; % (COMMENT)
+    x7 = NaN; % (COMMENT)
+    x8 = NaN; % (COMMENT)
+
+    % --- Part C [10 Points] --- %
+    F1 = NaN; % (COMMENT)
+
+    F2 = F1;    % (DO NOT REMOVE) Copy array
+    % (WRITE COMMAND ON THIS LINE) (COMMENT)
+
+    E = NaN; % (COMMENT)
+    
+    m = NaN; % (REMOVE THIS LINE)
+    n = NaN; % (REMOVE THIS LINE)
+    %[m, n] = ; % (UNCOMMENT LINE & COMPLETE)
+    
+    E1 = NaN; % (COMMENT)
+    E2 = NaN; % (COMMENT)
+end

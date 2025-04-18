@@ -1,0 +1,156 @@
+function [name, ufid, ...
+    A1, A2, A3, A4, ...
+    A, B, ABBA, C, AC, CA, AI, IA, inverse_A, ...
+    D, inverse_D, rref_something, rref_inverse_D, inv_inv_D, ...
+    E, inverse_DE, inv_D_inv_E, inv_E_inv_D, ...
+    inv_DT, inv_D_T] = Exercise3(n)
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    % --- Part A [10 Points] --- %
+    % For-Loop (i)
+    A1 = zeros(n);
+    for i = 1:n
+        for j = 1:n
+            A1(i,j) = i + j;
+        end
+    end
+
+    % For-Loop (ii)
+    A2 = zeros(n);
+    for i = 1:n
+        for j = i:n
+            A2(i,j) = i + j;
+            A2(j,i) = A2(i,j);
+        end
+    end
+
+    %{ 
+    (- Yes, both for-loops produce the same output matrix A1 and A2.
+    - For-Loop (i) fills the entire matrix, while For-Loop (ii) only computes the upper triangular part and fills the matrix symmetrically)
+
+    For-Loop (i) = (n^2(n rows * n columns)) FLOPs
+    
+    For-Loop (ii) = (n(n + 1)/2) FLOPs 
+     - The inner loop runs from i to n, so the number of iterations/loops decreases as i increases.
+    - The total number of FLOPs is the sum of the first n  numbers: n(n + 1)/2.
+
+    (COMPARE; WHICH REQUIRES LESS FLOPs?)
+    - For-Loop (ii) requires less FLOPs 
+    because it only computes the upper triangular part and mirrors it.
+    
+    %}
+
+    % --- Part B [10 Points] --- %
+    % While-Loop (i)
+    A3 = zeros(n); % (DO NOT MODIFY THIS LINE)
+
+    % (REWRITE FOR-LOOP (i) USING WHILE LOOPS HERE)
+    i = 1;
+    while i <= n
+        j = 1;
+        while j <= n
+            A3(i,j) = i + j; 
+            j = j + 1;
+        end
+        i = i + 1; 
+    end
+    
+
+    % While-Loop (ii)
+    A4 = zeros(n); % (DO NOT MODIFY THIS LINE)
+    
+
+    % (REWRITE FOR-LOOP (ii) USING WHILE LOOPS HERE)
+    i = 1;
+    while i <= n
+        j = i;
+        while j <= n
+            A4(i,j) = i + j; % Fill the upper triangular part with i + j
+            A4(j,i) = A4(i,j); % Mirror the upper triangular part to the lower triangular part
+            j = j + 1; 
+        end
+        i = i + 1; 
+    end
+ 
+    % --- Part C [10 Points] --- %
+    A = A1; % (DO NOT MODIFY THIS LINE)
+    B = randi([-7, 7], n, n-2); % Create a random n x (n-2) matrix 
+
+    ABBA = A * B; % Compute A * B
+    %{ 
+    (EXPLAIN WHY EITHER A*B OR B*A DOES NOT WORK / IS UNDEFINED)
+    - A * B works because A is n x n and B is n x (n-2), so the inner numbers/dimensions match.
+    - B * A does NOT work because B is n x (n-2) and A is n x n, so the they do not match.
+    %}
+
+    C = randi([-7, 7], n, n); % Create a random n x n matrix C
+
+    AC = A * C; % Compute A * C
+    CA = C * A; % Compute C * A
+    %{ 
+    (OBSERVE & EXPLAIN WHY EITHER EQUAL OR NOT EQUAL USING LINEAR ALGEBRA)
+    
+    Aside: Matrix multiplication is function composition.
+    - AC and CA are NOT equal because matrix multiplication is not commutative.
+    - The order of multiplication matters, so A * C ≠ C * A 
+    %}
+
+    AI = A * eye(n); % 
+    IA = eye(n) * A; %
+    %{ 
+    (OBSERVE & EXPLAIN WHY EITHER EQUAL OR NOT EQUAL USING LINEAR ALGEBRA)
+    
+    Hint: I_n, the identity matrix, has some special properties.
+     - AI and IA are equal: Since  I_n, the identity matrix/ matrix I is the multiplicative identity.
+    - Multiplying any matrix by I (on the left or right) leaves the matrix unchanged.
+    %}
+
+    % --- Part D [10 Points] --- %
+    inverse_A = inv(A);
+    %{ 
+    (OBSERVE WARNING & CONCLUDE INVERTIBILITY OF A)
+    - If MATLAB issues a warning, A is not invertible (singular).
+    - If no warning, A is invertible.
+    %}
+
+    D = randi([-7, 7], n, n); % Create a random n x n matrix D
+    inverse_D = inv(D); % Compute the inverse   
+
+
+    % Complete using *only* two lines and using the rref function 
+    % (cannot use inv function)!
+    rref_something = rref([D eye(n)]);
+    
+    rref_inverse_D = rref_something(:, n+1:end); % Get the inverse from RREF
+
+    inv_inv_D = inv(inverse_D); % Compute inv(inv(D))
+    %{ 
+    (OBSERVE & GENERALIZE)
+    - inv_inv_D equals D because the inverse of the inverse of a matrix is the original matrix.
+    - Generalization: inv(inv(X)) = X wokrs for any invertible matrix X.
+    %}
+
+    E = randi([-7, 7], n, n); % Create a random n x n matrix E
+
+    inverse_DE = inv(D * E); 
+    inv_D_inv_E = inv(D) * inv(E); % Compute inv(D) * inv(E)
+    inv_E_inv_D = inv(E) * inv(D); 
+    %{ 
+    The inverse of the product of two invertible matrices D and E is
+    equal to (the product of their inverses in reverse order)
+    - inv(D * E) = inv(E) * inv(D)
+    - This is because matrix multiplication is not commutative, and the inverse of a product is the product of the inverses in reverse order.
+    %}
+
+    inv_DT = inv(D');
+    inv_D_T = (inv(D))';
+    %{
+    
+    The inverse of the transpose of an invertible matrix D is equal to
+    (the transpose of the inverse of D)
+    - inv(D') = (inv(D))'
+    - This is because the inverse of the transpose is the transpose of the inverse.
+    %}
+end

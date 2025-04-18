@@ -1,0 +1,52 @@
+function [name, ufid, ...
+    A1, A2, A3, dep_A1, dep_A2, dep_A3, ...
+    B1, B2, B3, dep_B1, dep_B2, dep_B3, ...
+    example_B, dep_B, example_C, dep_C] = Exercise1()
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    % --- Part A [10 Points] --- %
+    % (1) m < n
+    A1 = randi([-7, 7], 3, 6); % Random 3x6 matrix
+    A2 = randi([-7, 7], 3, 6); 
+    A3 = randi([-7, 7], 3, 6); 
+
+    dep_A1 = dependence(A1); % Check linear dependence
+    dep_A2 = dependence(A2); 
+    dep_A3 = dependence(A3); 
+
+    % (2) m > n
+    B1 = randi([-7, 7], 6, 3); % Random 6x3 matrix
+    B2 = randi([-7, 7], 6, 3); 
+    B3 = randi([-7, 7], 6, 3); 
+
+    dep_B1 = dependence(B1); % Check linear dependence
+    dep_B2 = dependence(B2); 
+    dep_B3 = dependence(B3); 
+
+    % --- Part B [10 Points] --- %
+    %{ yes: for a 3*6 matrix it's always linearly dependent 
+    %because the number of columns is 6,which exceeds
+    % the number of rows (3), and the rank of the matrix cannot exceed 3.
+    % The rank of a matrix is 
+%}
+
+    example_B = [1 0 2 1 1 1; 0 1 0 1 1 1; 0 0 1 1 1 1];
+    dep_B = dependence(example_B); 
+
+    % --- Part C [10 Points] --- %
+    %{ 
+    No.For a 6*3 matrix it is not always linearly independent
+    % The rank of a matrix is the maximum number 
+of linearly independent columns/rows in the matrix.
+
+For a 6x3 matrix, the rank cannot exceed 3 because
+ there are only 3 columns. However, 
+the rank can be less than 3 if the columns are linearly dependent.
+
+    %}
+
+    example_C = [1 2 3; 4 5 6; 7 8 9; 10 11 12; 13 14 15; 16 17 18]; % ex
+    dep_C = dependence(example_C); 
+end

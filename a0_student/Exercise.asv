@@ -1,0 +1,42 @@
+function [name, ufid, u, v, w, x, A, A_11, A_23, A2, A3, B, B2, B3, ...
+          b, aug, rref_Ab1, rref_Ab2, pivcols, compare] = Exercise()
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    % --- Extra Credit [6 Points] --- %
+    % * Vectors *
+    u = [1 3 5 7];% u is the row vectors with entries 1, 3, 5, 7
+    v = [1; 3; 5; 7];
+    w = 1:7;
+    x = 1:2:7;
+    
+    % * Matrices *
+    % Enter entries manually
+    A = NaN; 
+    A_11 = NaN; % (COMMENT)
+    A_23 = NaN; % (COMMENT)
+    A2 = NaN; % (COMMENT)
+    A3 = NaN; % (COMMENT)
+    
+    % Randomly generated matrices
+    B = NaN; % (COMMENT)
+    B2 = NaN; % (COMMENT)
+    B3 = NaN; % (COMMENT)
+    
+    % * Solving Systems *
+    % Solve Ax=b using RREF
+    b = [1; 2];
+    aug = NaN; % (COMMENT)
+    rref_Ab1 = NaN; % (COMMENT)
+    rref_Ab2 = NaN; % (REMOVE THIS LINE)
+    pivcols = NaN; % (REMOVE THIS LINE)
+    % [rref_Ab2, pivcols] = NaN; % (UNCOMMENT LINE) 
+    %{
+    (COMMENTS)
+    %}
+    
+    % Solve Ax=b by comparing the ranks
+    compare = NaN; 
+    % (COMMENT)
+end

@@ -1,0 +1,54 @@
+function [x, name, ufid]  = CramersRule(A, b)
+    % Purpose: (COMMENT)
+    % Input Argument [A]: (COMMENT)
+    % Input Argument [b]: (COMMENT)
+    % Output Argument [x]: (COMMENT)
+
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    [m, n] = size(A); % # of rows and columns of A, respectively
+
+    % Use CramersRule3x3.m as a guide to write this new function.
+    % Hint: Use a for-loop.
+
+    % Check if A is non-square according to the instruction
+    if m ~= n
+        x = NaN(n, 1); 
+        return;
+    end
+
+    % Check if b is compatible with A
+    if length(b) ~= n
+        error('b must be a column vector of (compatible size with A.');
+    end
+
+    % Compute the determinant of A
+    detA = det(A);
+
+    % Check if A is singular (determinant close to zero)
+    % That's similar to the 3*3
+    if abs(detA) <= 1e-8
+        x = NaN(n, 1); % Return NaN if A is singular
+        return;
+    end
+
+    % Initialize the solution vector
+    x = zeros(n, 1);
+
+    % Use Cramer's Rule to compute each component of x
+    for i = 1:n
+        % Create a modified matrix where the i-th column is replaced by b
+        Ai = A;
+        Ai(:, i) = b;
+
+        % Compute the determinant of the modified matrix
+        detAi = det(Ai);
+
+        % Compute x(i) using Cramer's Rule
+        x(i) = detAi / detA;
+    end
+end
+
+

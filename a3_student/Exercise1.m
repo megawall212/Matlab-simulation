@@ -1,0 +1,138 @@
+function [name, ufid, ...
+    A, rref_A, det_A, det_AT, ...
+    A1, b1, sol_1_partic, sol_1_matlab, sol_1_cramer, ...
+    A2, b2, sol_2_partic, sol_2_matlab, sol_2_cramer, ...
+    A3, b3, sol_3_partic, sol_3_matlab, sol_3_cramer] = Exercise1()
+    % --- Name & UFID --- %
+    name = "Zeyu Li";
+    ufid = 55153019;
+
+    % --- Part A [10 Points] --- %
+    % (i) Some MATLAB implementation details...
+
+    % % vvvvv COMMENT OUT THIS BLOCK BEFORE SUBMITTING vvvvv %
+%     %{n = randi([2500, 5000]);
+%     A = randi([-7,7], n, n);
+%     b = randi([-7,7], n, n);
+% 
+%     tic
+%         A\b;
+%     toc;
+% 
+%     tic
+%         inv(A) * b;
+%     toc;}%
+%     % ^^^^^ COMMENT OUT THIS BLOCK BEFORE SUBMITTING ^^^^^ %
+
+    %{ 
+    (COMPARE BOTH & NOTE WHICH ONE IS FASTER & FIND OUT WHAT A\b ACTUALLY DOES)
+    %}
+   
+    %from what I found online,Using A\b instead of inv(A)*b is two to three times faster
+    %and produces residuals on the order of machine accuracy relative to the magnitude of the data.
+    % (without explicitly forming the inverse)-
+    %A\b is also more numerically stable because MATLAB uses optimized methods
+    %like Gaussian elimination. On the other hand, inv(A)*b explicitly computes the inverse,
+    %which can introduce rounding or numerical errors, especially when A is
+    %close to singular 
+    %A\b returns the solution to the system Ax = b, while inv(A)*b computes the inverse of A
+    % and then multiplies it by b,
+    %A\b returns the least-squares solution when A is not square or is singular.
+
+    % (ii) Some more practical things...
+    A = [1 2 3; -4 -5 -6; 7 8 9]; 
+    rref_A = rref(A);
+
+    %{ 
+    (CONCLUDE INVERTIBILITY OF A WITH VALID REASONING:)
+    Since RREF(A) has a row of zeros (the third row)
+    meaning the system has dependent equations. It is also not full rank.
+    So according to the
+    Invertible matrix theorem A is not invertible.(also the matrix is
+    singular)
+   
+    %}
+
+    det_A = det(A);
+    det_AT = det(A'); % Compute determinant of A transpose
+    %disp(det(sym(A))) % (COMMENT OUT BEFORE SUBMISSION!)
+    
+
+    %{ 
+    (DETERMINE RELATION BETWEEN det(A) AND det(A^T))
+    (WHAT CAN YOU SAY ABOUT THE INVERIBILITY OF A^T WHEN A IS NOT INVERTIBLE?)
+    %}
+    
+    % If det(A) = 0, then A is singular (therefore not invertible). 
+    % Also, det(A) = det(A^T), (they are always equal)
+    % So if A is not invertible, neither is A^T.
+    % Because det(A^T) = det(A) = 0.
+
+
+    % --- Part B [10 Points] --- %
+    A1 = [1 1 -2; 1 -2 4; 0 1 -2];
+    b1 = [1; -2; 3];
+    sol_1_partic = ParticularSolution(A1, b1);
+    sol_1_matlab = A1 \ b1;
+    sol_1_cramer = CramersRule3x3(A1, b1);
+
+
+    %{ 
+    (IS THE SYSTEM CONSISTENT & PROVIDE REASONING)
+    (DETERMINE ALL SOLUTIONS OF THE SYSTEM)
+    %}
+    
+    
+    %{ 
+    If rank(A1) = rank([A1 | b1]) = n (numbers of column), the system is consistent and has unique
+    solution
+    If rank(A1) < 3, then it has infinitely many solutions.
+    
+    %}
+    
+    %{For part b the system is inconsistent because rank(A1) < rank([A1 b1]).
+    %- The solution set is empty also because the system has no solution.
+%}
+
+
+    % --- Part C [10 Points] --- %
+    A2 = [1 1 -2; 1 -2 4; 0 1 -2];
+    b2 = [1; -2; 1];
+
+    sol_2_partic = ParticularSolution(A2, b2);
+    sol_2_matlab = A2\b2;
+    sol_2_cramer = CramersRule3x3(A2, b2);
+
+    %{ 
+    (IS THE SYSTEM CONSISTENT & PROVIDE REASONING)
+    (DETERMINE ALL SOLUTIONS OF THE SYSTEM)
+    %}
+   
+    % - The system is consistent because rank(A2) == rank([A2 b2]).
+    %- The system has infinitely many solutions because rank(A2) < 3.
+    %- The solution set can be expressed in parametric form as:
+    % x = [0; 1; 0] + t * [0; 2; 1], where  t ( or x3) is in R.
+
+
+    % --- Part D [10 Points] --- %
+  
+    A3 = [1 1 -2; 1 -2 -2; 0 1 2];
+    b3 = [1; -2; 1];
+
+    
+    sol_3_partic = ParticularSolution(A3, b3);
+    sol_3_matlab = A3\b3;
+    sol_3_cramer = CramersRule3x3(A3, b3);
+    
+
+    %{ 
+    (IS THE SYSTEM CONSISTENT & PROVIDE REASONING)
+    (DETERMINE ALL SOLUTIONS OF THE SYSTEM)
+    %}
+
+    %- The system is consistent because rank(A3) == rank([A3 b3]).
+    %  The matrix A is also invertible 
+    %- The system has a unique solution.
+   
+end
+
